@@ -1,0 +1,103 @@
+/* ==========================================================================
+   base.css — design tokens + reset + typography
+   To re-skin a lab, change the tokens in :root. Nothing else hard-codes colours
+   for the shell (header, rail, cards, buttons).
+   ========================================================================== */
+
+:root {
+  /* ---- Brand / theme ---- */
+  --clr-primary: #089b93;
+  --clr-primary-dark: #056e68;
+  --clr-primary-ink: #087d76;        /* teal text on white */
+  --clr-primary-soft: #e7f6f5;       /* hover / tint */
+  --clr-header-top: rgb(28, 138, 138);
+  --clr-header-bottom: rgb(75, 77, 77);
+  --clr-page: #9fdeff;               /* page background behind the cards */
+
+  /* ---- Surfaces & text ---- */
+  --clr-surface: #ffffff;
+  --clr-surface-alt: #f5fbfa;
+  --clr-border: #e2e8f0;
+  --clr-border-strong: #cbd5e1;
+  --clr-ink: #333333;
+  --clr-ink-strong: #1e293b;
+  --clr-muted: #64748b;
+
+  /* ---- Status colours ---- */
+  --clr-running: #089b93;
+  --clr-paused: #c48329;
+  --clr-idle: #929292;
+  --clr-danger: #ef4444;
+  --clr-danger-dark: #dc2626;
+  --clr-positive: #0d9488;
+  --clr-negative: #e11d48;
+
+  /* ---- Shape ---- */
+  --radius-sm: 0.4rem;
+  --radius-md: 0.9rem;
+  --radius-lg: 1.4rem;
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.04);
+
+  /* ---- Layout sizes (used by layout.css / responsive.css) ---- */
+  --panel-w: 28rem;                                        /* right side panel */
+  --stage-h: clamp(44rem, calc(100vh - 22rem), 90rem);     /* workspace height on desktop */
+}
+
+/* ---- Reset ---- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 62.5% => 1rem = 10px. All sizes in the project are in rem. */
+html {
+  font-size: 62.5%;
+  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  scroll-behavior: smooth;
+}
+
+body {
+  width: 100%;
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  color: var(--clr-ink);
+  background: var(--clr-page);
+  font-size: 1.6rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+canvas {
+  display: block;
+  max-width: 100%;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* The `hidden` attribute must always win, even on elements that set `display`. */
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 2px;
+}

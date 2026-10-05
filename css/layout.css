@@ -1,0 +1,433 @@
+/* ==========================================================================
+   layout.css — page architecture (desktop first)
+   header -> [nav rail | main( dashboard | workspace card ) + footer]
+   Tablet / mobile overrides live in responsive.css.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Header
+   -------------------------------------------------------------------------- */
+.app-header {
+  width: 100%;
+  padding: 0.5rem;
+  background: var(--clr-page);
+}
+
+.app-header__inner {
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  min-height: 8rem;
+  padding: 0.5rem 2rem;
+  border-radius: 1rem;
+  background-image: linear-gradient(to bottom, var(--clr-header-top), var(--clr-header-bottom));
+}
+
+.logo-div {
+  display: grid;
+  flex: 0 0 8rem;
+  place-content: center;
+  width: 8rem;
+  min-height: 5.4rem;
+}
+
+.logo {
+  width: 100%;
+  max-height: 5.4rem;
+  padding: 0.2rem;
+  object-fit: contain;
+}
+
+.app-header h1 {
+  flex: 1;
+  color: #fff;
+  font-size: clamp(2rem, 3vw, 3.2rem);
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* --------------------------------------------------------------------------
+   2. Container: nav rail + main
+   -------------------------------------------------------------------------- */
+.app-container {
+  display: flex;
+  flex: 1;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: calc(100vh - 13rem);
+  padding: 0 0.5rem 0.5rem;
+  background: var(--clr-page);
+}
+
+.main {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-width: 0;
+}
+
+/* --------------------------------------------------------------------------
+   3. Navigation rail (sticky on desktop; bottom tab bar on mobile)
+   -------------------------------------------------------------------------- */
+.sidebar {
+  position: sticky;
+  top: 0.5rem;
+  align-self: flex-start;
+  display: flex;
+  align-items: center;
+  height: calc(100vh - 14rem);
+  min-height: 40rem;
+  padding: 1rem 0.8rem;
+  background: #fffcfc;
+  border-radius: 0.9rem;
+  box-shadow: 0 1rem 1rem rgba(177, 176, 176, 0.65);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.sidebar::-webkit-scrollbar { width: 0.8rem; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(8, 155, 147, 0.35); border-radius: 999px; }
+
+.tool-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  list-style: none;
+}
+
+.tool-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+}
+
+.tool-list span {
+  font-size: 1.05rem;
+}
+
+/* Icon button. The icon URL comes from the inline custom property --icon
+   (set by workspace.js from config.sections[].icon). */
+.nav-btn {
+  display: grid;
+  place-items: center;
+  width: 4rem;
+  height: 3.2rem;
+  border: 0;
+  background: transparent;
+  color: var(--clr-primary);
+}
+
+.nav-btn::before {
+  content: "";
+  display: block;
+  width: 3.8rem;
+  height: 3.8rem;
+  background: var(--icon) center / contain no-repeat;
+  transition: transform 0.18s ease-in-out, filter 0.18s ease-in-out;
+}
+
+.nav-btn:hover::before { transform: translateY(-1px) scale(1.04); }
+
+.nav-btn.is-active::before {
+  filter: drop-shadow(0 0 0.35rem var(--clr-primary));
+  transform: scale(1.06);
+}
+
+/* --------------------------------------------------------------------------
+   4. Workspace card
+   -------------------------------------------------------------------------- */
+.workspace-card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+  background: var(--clr-surface);
+  border: 1px solid var(--clr-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+
+/* Title bar */
+.task-heading {
+  display: flex;
+  align-items: stretch;
+  justify-content: space-between;
+  background-image: linear-gradient(to bottom, var(--clr-header-top), var(--clr-header-bottom));
+}
+
+.task-title {
+  flex: 1;
+  align-self: center;
+  padding: 0.3rem 1.6rem;
+  color: #fff;
+  font-size: 1.8rem;
+  letter-spacing: 0.15rem;
+}
+
+.heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.3rem 1rem;
+}
+
+.heading-button {
+  display: grid;
+  place-items: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border: 1px solid #ffffff90;
+  border-radius: var(--radius-sm);
+  background: #ffffff1c;
+  color: #fff;
+  font-size: 1.8rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.heading-button:hover { background: #ffffff38; }
+.help-button { border-radius: 50%; font-family: Georgia, serif; font-size: 1.55rem; }
+
+/* Red "Close" button: only visible when a section (not the dashboard) is open */
+.close-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  border: 0;
+  border-radius: 0.6rem;
+  background: var(--clr-danger);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.close-button:hover { background: var(--clr-danger-dark); transform: scale(1.04); }
+.close-button:active { transform: scale(0.97); }
+.close-icon { font-size: 1.4rem; line-height: 1; }
+
+/* Status bar under the title (interactive sections only) */
+.simulation-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.4rem 1.2rem;
+  border-bottom: 1px solid #d9e5e5;
+}
+
+.workspace-card[data-interactive="false"] .simulation-toolbar { display: none; }
+
+.status-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  color: #4b4d4d;
+  font-size: 1.4rem;
+}
+
+.status-dot {
+  width: 0.9rem;
+  height: 0.9rem;
+  border-radius: 50%;
+  background: var(--clr-idle);
+}
+
+.status-dot.running { background: var(--clr-running); box-shadow: 0 0 0 0.3rem #089b9333; }
+.status-dot.paused { background: var(--clr-paused); }
+
+/* --------------------------------------------------------------------------
+   5. Stage = viewport (left) + side panel (right)
+   -------------------------------------------------------------------------- */
+.lab-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--panel-w);
+  flex: 1;
+  min-height: 0;
+  height: var(--stage-h);
+  background: var(--clr-surface);
+}
+
+/* No side panel for this section -> viewport takes the full width */
+.workspace-card[data-side="off"] .lab-stage { grid-template-columns: minmax(0, 1fr); }
+.workspace-card[data-side="off"] .side-panel { display: none; }
+
+.workspace-viewport {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  background: var(--clr-surface);
+}
+
+.workspace-viewport.diagram-viewport { overflow: hidden; }
+
+html.diagram-open,
+body.diagram-open { overflow: hidden; }
+
+/* One panel per section; JS un-hides the active one.
+   Text panels grow to fill the viewport (and scroll if their content is taller). */
+.panel { flex: 1 0 auto; min-width: 0; }
+
+/* Panels that must be exactly the viewport height (3D scene, graphs) */
+.panel--fill { flex: 1 1 0; min-height: 0; }
+
+/* --- Simulation window --- */
+.sim-window {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100%;
+}
+
+.sim-viewport {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  min-height: 0;
+  overflow: hidden;
+  background: #f4f4f0;
+}
+
+.sim-viewport canvas {
+  display: block;
+  width: 100% !important;   /* three.js sets inline pixel sizes; CSS owns the layout */
+  height: 100% !important;
+  cursor: grab;
+  touch-action: none;
+}
+
+.sim-viewport canvas:active { cursor: grabbing; }
+
+.viewport-fallback {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 2rem;
+  color: var(--clr-muted);
+  font-size: 1.4rem;
+  text-align: center;
+}
+
+.drag-hint {
+  position: absolute;
+  bottom: 1.1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: calc(100% - 2rem);
+  padding: 0.35rem 0.9rem;
+  border-radius: 1.5rem;
+  background: #ffffffdf;
+  color: var(--clr-primary-ink);
+  box-shadow: 0 0.2rem 0.5rem #4c6c6b2e;
+  font-size: 1.15rem;
+  text-align: center;
+  pointer-events: none;
+}
+
+/* Viewport-only fullscreen button (top-right of the scene) */
+.viewport-fullscreen-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 25;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid var(--clr-border-strong);
+  border-radius: 8px;
+  color: #168983;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+  backdrop-filter: blur(4px);
+  transition: all 0.2s ease-in-out;
+}
+
+.viewport-fullscreen-btn:hover { background: #168983; color: #fff; border-color: #168983; transform: scale(1.06); }
+.viewport-fullscreen-btn:active { transform: scale(0.95); }
+
+.sim-window:fullscreen {
+  width: 100vw;
+  height: 100vh;
+  background: #f8fafc;
+}
+
+.sim-window:fullscreen .viewport-fullscreen-btn {
+  top: 16px;
+  right: 16px;
+  background: rgba(15, 23, 42, 0.75);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* --- Side panel --- */
+.side-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  min-height: 0;
+  padding: 1rem;
+  border-left: 1px solid #d2e1e0;
+  background: var(--clr-surface);
+  overflow-y: auto;
+}
+
+.side-controls,
+.side-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Interactive sections show controls; the others show the info card. */
+.workspace-card[data-interactive="true"] .side-info { display: none; }
+.workspace-card[data-interactive="false"] .side-controls { display: none; }
+
+/* --------------------------------------------------------------------------
+   6. Footer
+   -------------------------------------------------------------------------- */
+.footer {
+  flex: 0 0 auto;
+  width: 100%;
+  padding: 0.6rem;
+  color: #fff;
+  text-align: center;
+  font-size: 1.1rem;
+  border-radius: 0.5rem;
+  background-image: linear-gradient(to bottom, var(--clr-header-bottom), var(--clr-header-top));
+}
+
+/* --------------------------------------------------------------------------
+   7. Dashboard mode (first screen): hide rail + workspace, show the card grid
+   -------------------------------------------------------------------------- */
+body.dashboard-active .sidebar,
+body.dashboard-active .workspace-card { display: none; }
+
+body:not(.dashboard-active) .dashboard-view { display: none; }
+
+body:not(.dashboard-active) .close-button { display: inline-flex; }
+body.dashboard-active .close-button { display: none; }
+
+.simulation-toolbar-controls { display:flex; align-items:center; justify-content:flex-end; flex:1; flex-wrap:wrap; gap:.7rem; }
+.simulation-toolbar-actions { display:flex; flex-wrap:wrap; gap:.5rem; }
+.simulation-toolbar-actions .control-button { padding:.4rem .7rem; font-size:1.1rem; }
+.toolbar-phase-config { display:flex; align-items:center; gap:.45rem; padding-left:.7rem; border-left:1px solid #d9e5e5; }
+.toolbar-phase-config .group-label { white-space:nowrap; font-size:1rem; }
+.toolbar-select { min-width:8.4rem; padding:.38rem .55rem; border:1px solid var(--clr-border-strong); border-radius:var(--radius-sm); background:#f8fafc; color:#334155; font-family:inherit; font-size:1.05rem; font-weight:700; cursor:pointer; }
+.toolbar-direct-connect { display:flex; align-items:center; gap:.5rem; padding-left:.7rem; border-left:1px solid #d9e5e5; color:#334155; font-size:1.1rem; font-weight:700; white-space:nowrap; cursor:pointer; }
+.toolbar-direct-connect small { color:#64748b; font-size:.95em; font-weight:600; }
+.toolbar-direct-connect input { width:1.45rem; height:1.45rem; accent-color:var(--clr-primary); cursor:pointer; }
