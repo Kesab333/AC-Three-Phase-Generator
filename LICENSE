@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 GNU AFFERO GENERAL PUBLIC LICENSE (AGPL-3.0)
 
 Project: AC Three-Phase Generator Virtual Lab
@@ -54,3 +55,19 @@ where explicitly required by applicable law or separately agreed in writing.
 
 For the full legal terms governing the software, consult the official
 GNU Affero General Public License v3.0 text at the URL above.
+=======
+Copyright (c) 2026 SOLVE Virtual Lab team, National Institute of Technology Karnataka (NITK), Surathkal
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <https://www.gnu.org/licenses/>.
+>>>>>>> ef23f32a96070002d294ef710e0f5deb9c261f1c
