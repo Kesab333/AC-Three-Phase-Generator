@@ -1,4 +1,4 @@
-/* ==========================================================================
+/* scope.css — AC generator styles *//* ==========================================================================
    scope.css — DS1000Z oscilloscope hardware (front panel, screen, knobs, BNC jacks)
    Rendered inside <foreignObject id="cro-group"> and scaled by .scope-scaler.
    ========================================================================== */
@@ -15,9 +15,7 @@
 /* Everything that is NOT the scope's own authentic LCD digit readouts
        (those intentionally keep "Courier New" below, matching real
        oscilloscope screen typography) uses Arial per the requested font. */
-    .interaction-toolbar, .btn-hw, .knob-label-text, .panel-title,
-    .header-model, .header-specs, .menu-item, .bnc-label, .warning-text,
-    #physics-panel, #physics-panel *, #cro-control-panel, #cro-control-panel * {
+    .btn-hw, .knob-label-text, .panel-title, .header-model, .header-specs, .menu-item, .warning-text, #physics-panel, #physics-panel *, #cro-control-panel, #cro-control-panel * {
       font-family: Arial, Helvetica, sans-serif;
     }
 
@@ -651,15 +649,6 @@
       position: relative;
     }
 
-.bnc-label {
-      font-size: 15px;
-      font-weight: 900;
-      padding: 0 6px;
-      border-radius: 3px;
-      margin-bottom: 2px;
-      text-shadow: 0 1px 1px rgba(255,255,255,0.8);
-    }
-
 .bnc-badge {
       width: 22px;
       height: 22px;
@@ -676,16 +665,6 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.35);
       user-select: none;
     }
-
-.bnc-label.ch1 { color: var(--ch1-dark); }
-
-.bnc-label.ch2 { color: var(--ch2-dark); }
-
-.bnc-label.ch3 { color: var(--ch3-dark); }
-
-.bnc-label.ch4 { color: var(--ch4-dark); }
-
-.bnc-label.ground-label { color: #334155; }
 
 .bnc-jack-3d {
       width: 50px;

@@ -1,4 +1,4 @@
-/* ==========================================================================
+/* responsive.css — AC generator styles *//* ==========================================================================
    responsive.css — the only place with breakpoints
    Desktop  : > 1024px  (layout.css)
    Tablet   : 769–1024px
@@ -31,8 +31,6 @@
 
   .dashboard-cards-grid { grid-template-columns: repeat(auto-fit, minmax(24rem, 1fr)); gap: 1.8rem; }
   .dash-preview-area { height: 16rem; }
-
-  .formula-selector-card { flex-wrap: wrap; }
 }
 
 /* --------------------------------------------------------------------------
@@ -100,27 +98,11 @@
   .footer { flex: 0 0 auto; margin-top: 0; }
 
   /* Graph canvases need an explicit height once the flex parent is auto-height */
-  .graph-grid { height: auto; }
-  .graph-grid figure { flex: none; }
   .graph-canvas-wrap { flex: none; height: 22rem; }
 
   #panel-diagram { flex: none; height: auto; overflow: visible; }
-  .diagram-figure { flex: none; }
-  .diagram-layout { flex-direction: column; overflow: visible; }
-  .diagram-panel { width: 100%; flex-basis: auto; overflow: visible; }
-  .diagram-info { flex-basis: auto; max-height: calc(100vh - 16rem); overflow-y: auto; padding-right: 0; }
-  .diagram-figure img { flex: none; width: 100%; height: auto; max-height: 40rem; }
 
   /* ---- Panels ---- */
-  .formula-workspace,
-  .calc-workspace,
-  .observation-workspace,
-  .results-workspace { padding: 1rem; }
-
-  .formula-selector-card { flex-direction: column; align-items: stretch; gap: 0.6rem; }
-  .formula-display-grid,
-  .readout-grid { grid-template-columns: 1fr; }
-  .latex-render { min-height: 8rem; font-size: 1.6rem; }
   select { text-overflow: ellipsis; }
 
   /* ---- Dashboard ---- */
@@ -129,7 +111,6 @@
   .dash-preview-area { height: 13rem; }
   .dash-preview-badge { top: 0.8rem; right: 0.8rem; width: 3.4rem; height: 3.4rem; border-radius: 0.8rem; }
   .dash-icon-img { width: 2.2rem; height: 2.2rem; }
-  .dash-default-preview img { width: 6rem; height: 6rem; }
   .dash-card-label { padding: 1rem 1.2rem; }
   .dash-card-label span { font-size: 1.3rem; }
 

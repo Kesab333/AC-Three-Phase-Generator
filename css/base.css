@@ -1,8 +1,34 @@
-/* ==========================================================================
+/* base.css — AC generator styles *//* ==========================================================================
    base.css — design tokens + reset + typography
    To re-skin a lab, change the tokens in :root. Nothing else hard-codes colours
    for the shell (header, rail, cards, buttons).
    ========================================================================== */
+
+/* ---- Reset ---- */
+
+/* 62.5% => 1rem = 10px. All sizes in the project are in rem. */
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+/* The `hidden` attribute must always win, even on elements that set `display`. */
+[hidden] {
+  display: none !important;
+}
+
+:focus-visible {
+  outline: 2px solid var(--clr-primary);
+  outline-offset: 2px;
+}
+
+/* general.css — AC generator styles */
 
 :root {
   /* ---- Brand / theme ---- */
@@ -41,9 +67,17 @@
   /* ---- Layout sizes (used by layout.css / responsive.css) ---- */
   --panel-w: 28rem;                                        /* right side panel */
   --stage-h: clamp(44rem, calc(100vh - 22rem), 90rem);     /* workspace height on desktop */
+  --clr-title-background: #089b93;
+  --clr-title-background2: rgb(8, 195, 185);
+  --clr-container-clr: #9fdeff;
+  --clr-body-clr: #c9e1ddfb;
+  --clr-side-background2: rgb(28, 138, 138);
+  --clr-side-background3: rgb(75, 77, 77);
+  --clr-text-clr: #fff;
+  --ink: #333;
+  --px-prov-f03: "7103";
 }
 
-/* ---- Reset ---- */
 *,
 *::before,
 *::after {
@@ -52,30 +86,29 @@
   padding: 0;
 }
 
-/* 62.5% => 1rem = 10px. All sizes in the project are in rem. */
 html {
   font-size: 62.5%;
-  font-family: "Nunito", system-ui, -apple-system, "Segoe UI", sans-serif;
+  font-family: "Nunito", sans-serif;
   scroll-behavior: smooth;
 }
 
 body {
-  width: 100%;
-  margin: 0;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   overflow-x: hidden;
-  color: var(--clr-ink);
-  background: var(--clr-page);
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  color: var(--ink);
+  background: var(--clr-body-clr);
   font-size: 1.6rem;
   font-weight: 600;
   line-height: 1.5;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 button,
-input,
-select {
+input {
   font: inherit;
 }
 
@@ -86,18 +119,4 @@ button {
 canvas {
   display: block;
   max-width: 100%;
-}
-
-img {
-  max-width: 100%;
-}
-
-/* The `hidden` attribute must always win, even on elements that set `display`. */
-[hidden] {
-  display: none !important;
-}
-
-:focus-visible {
-  outline: 2px solid var(--clr-primary);
-  outline-offset: 2px;
 }

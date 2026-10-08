@@ -15,7 +15,6 @@
     { id: 'calculation', title: 'Calculation', icon: 'images/calculation.svg' },
     { id: 'results', title: 'Results', icon: 'images/results.svg' }
   ];
-  const INTERACTIVE = { simulation: true, graphs: false };
   const card = $('workspaceCard');
   let current = 'simulation';
 
@@ -25,6 +24,8 @@
   $('navMenu').addEventListener('click', (e) => { const li = e.target.closest('.tool-list'); if (li) open(li.querySelector('.nav-btn').dataset.section); });
 
   function open(id) {
+    if (!SECTIONS.some(section => section.id === id)) return;
+    if (current === 'simulation' && id !== current) window.ACApparatus.resetLayout();
     current = id;
     document.body.classList.remove('dashboard-active');
     document.querySelectorAll('.panel').forEach((p) => { p.hidden = p.dataset.panel !== id; });
@@ -42,6 +43,7 @@
     requestAnimationFrame(() => window.ACWiring && window.ACWiring.update());
   }
   function toDashboard() {
+    if (current === 'simulation') window.ACApparatus.resetLayout();
     document.body.classList.add('dashboard-active');
     document.querySelectorAll('.nav-btn').forEach((b) => b.classList.remove('is-active'));
   }
@@ -67,18 +69,18 @@
   if (params.get('section')) open(params.get('section'));
 
   /* main loop */
-  let last = performance.now(), cro = 0;
+  let last = performance.now(), cro = 0, wiring = 0;
   function loop(now) {
     const dt = Math.min(0.05, (now - last) / 1000);
     last = now;
     runtime.step(dt);
-    window.ACApparatus.paint();
+    if (!document.hidden && current === 'simulation' && !document.body.classList.contains('dashboard-active')) window.ACApparatus.paint();
     const C = window.ACGeneratorCRO;
     if (current === 'simulation' && !document.body.classList.contains('dashboard-active')) {
       if (!C.SCOPE.running) { /* frozen display */ } else { C.updateSweepAnchor(); C.checkSingleShotStop(); }
       C.redrawTraces();
       if (now - cro > 120) { cro = now; C.updateTextReadouts(); }
-      window.ACWiring.update();
+      if (now - wiring >= 33) { wiring = now; window.ACWiring.update(); }
     }
     window.ACPanels.tick(now);
     window.ACDashboard.tick(now);

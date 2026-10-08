@@ -116,6 +116,8 @@
   }, { passive: false });
 
   function resetLayout() {
+    drag = null; pinch = null; pointers.clear();
+    items.forEach(it => it.node.classList.remove('is-dragging'));
     items.forEach((it) => { offsets[it.id] = { dx: 0, dy: 0 }; applyItem(it); });
     view.x = 0; view.y = 0; view.k = 1; applyView();
   }

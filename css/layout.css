@@ -1,4 +1,4 @@
-/* ==========================================================================
+/* layout.css — AC generator styles *//* ==========================================================================
    layout.css — page architecture (desktop first)
    header -> [nav rail | main( dashboard | workspace card ) + footer]
    Tablet / mobile overrides live in responsive.css.
@@ -310,32 +310,6 @@ body.diagram-open { overflow: hidden; }
 
 .sim-viewport canvas:active { cursor: grabbing; }
 
-.viewport-fallback {
-  display: grid;
-  place-items: center;
-  height: 100%;
-  padding: 2rem;
-  color: var(--clr-muted);
-  font-size: 1.4rem;
-  text-align: center;
-}
-
-.drag-hint {
-  position: absolute;
-  bottom: 1.1rem;
-  left: 50%;
-  transform: translateX(-50%);
-  max-width: calc(100% - 2rem);
-  padding: 0.35rem 0.9rem;
-  border-radius: 1.5rem;
-  background: #ffffffdf;
-  color: var(--clr-primary-ink);
-  box-shadow: 0 0.2rem 0.5rem #4c6c6b2e;
-  font-size: 1.15rem;
-  text-align: center;
-  pointer-events: none;
-}
-
 /* Viewport-only fullscreen button (top-right of the scene) */
 .viewport-fullscreen-btn {
   position: absolute;
@@ -431,3 +405,249 @@ body.dashboard-active .close-button { display: none; }
 .toolbar-direct-connect { display:flex; align-items:center; gap:.5rem; padding-left:.7rem; border-left:1px solid #d9e5e5; color:#334155; font-size:1.1rem; font-weight:700; white-space:nowrap; cursor:pointer; }
 .toolbar-direct-connect small { color:#64748b; font-size:.95em; font-weight:600; }
 .toolbar-direct-connect input { width:1.45rem; height:1.45rem; accent-color:var(--clr-primary); cursor:pointer; }
+/* components.css — AC generator styles */
+/* ==========================================================================
+   components.css — reusable building blocks
+   1. Buttons              4. Reference panels (diagram / formula / calculation)
+   2. Side-panel cards     5. Observation + readings table
+   3. Variable controls    6. Results + graphs
+   ========================================================================== */
+/* --------------------------------------------------------------------------
+   1. Buttons
+   -------------------------------------------------------------------------- */
+.control-button {
+  padding: 0.5rem 1rem;
+  border: 1px solid #168983;
+  border-radius: var(--radius-sm);
+  background: #fff;
+  color: #0a756e;
+  font-size: 1.2rem;
+  font-weight: 700;
+  transition: background 0.18s, color 0.18s, transform 0.18s;
+}
+.control-button:hover { transform: translateY(-1px); background: var(--clr-primary-soft); }
+.control-button:active { transform: scale(0.97); }
+.control-button.primary { background: var(--clr-primary); color: #fff; }
+.control-button.primary:hover { background: var(--clr-primary-dark); }
+.control-button:disabled { opacity: 0.45; cursor: not-allowed; transform: none; }
+/* --------------------------------------------------------------------------
+   2. Side-panel cards (accordion)
+   -------------------------------------------------------------------------- */
+.side-details {
+  overflow: hidden;
+  background: #fff;
+  border: 1px solid var(--clr-border-strong);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+}
+.side-details summary {
+  padding: 0.65rem 1rem;
+  color: #fff;
+  font-size: 1.4rem;
+  font-weight: 700;
+  list-style: none;
+  cursor: pointer;
+  user-select: none;
+  background-image: linear-gradient(to bottom, var(--clr-header-top), var(--clr-header-bottom));
+}
+.side-details summary::-webkit-details-marker { display: none; }
+.card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  padding: 1rem;
+}
+.control-actions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.6rem;
+  width: 100%;
+}
+.control-actions-grid .control-button {
+  width: 100%;
+  padding: 0.6rem 0.2rem;
+  font-size: 1.15rem;
+  white-space: nowrap;
+}
+/* An odd number of buttons: let the last one span the full row instead of leaving a gap */
+.control-actions-grid > .control-button:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.control-group { display: flex; flex-direction: column; gap: 0.5rem; }
+.group-label {
+  color: #475569;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+/* Info card shown next to non-interactive sections */
+/* --------------------------------------------------------------------------
+   3. Variable controls:  label / slider / [number + arrows] (unit)
+   -------------------------------------------------------------------------- */
+.var-div { display: flex; flex-direction: column; gap: 0.35rem; }
+.var-value-row { display: flex; align-items: center; justify-content: space-between; gap: .8rem; }
+.var-label {
+  color: #334155;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: left;
+}
+.var-range { display: block; width: 100%; height: 18px; margin: 0; background: transparent; outline: none; cursor: pointer; }
+.var-range {
+  -webkit-appearance: none;
+  appearance: none;
+  flex: 1;
+  min-width: 0;
+  height: 18px;               /* touch / hover hit area */
+  margin: 0;
+  background: transparent;
+  outline: none;
+  cursor: pointer;
+}
+/* Slider track */
+.var-range::-webkit-slider-runnable-track {
+  height: 5px;
+  border: 1px solid #b8c1ca;
+  border-radius: 3px;
+  background: #d8dee4;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+.var-range::-moz-range-track {
+  height: 5px;
+  border: 1px solid #b8c1ca;
+  border-radius: 3px;
+  background: #d8dee4;
+  box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+/* Slider thumb */
+.var-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  margin-top: -6px;           /* centres the thumb on the 5px track */
+  border: 1px solid #7398b5;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #2c5a7d 0%, #2c5a7d 22%, #8fbedd 25%, #bfe1f6 65%, #a2ccf0 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: transform 0.1s ease;
+}
+.var-range::-moz-range-thumb {
+  box-sizing: border-box;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #7398b5;
+  border-radius: 50%;
+  background: radial-gradient(circle at center, #2c5a7d 0%, #2c5a7d 22%, #8fbedd 25%, #bfe1f6 65%, #a2ccf0 100%);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+  transition: transform 0.1s ease;
+}
+.var-range::-webkit-slider-thumb:hover,
+.var-range::-moz-range-thumb:hover { transform: scale(1.1); }
+.var-range:disabled { opacity: 0.5; cursor: not-allowed; }
+.input-unit-wrap { display: inline-flex; flex-shrink: 0; align-items: center; gap: 0.5rem; }
+/* Number box with up/down arrows */
+.custom-stepper {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: 8.2rem;
+  min-width: 8.2rem;
+  height: 2.5rem;
+  border: 1px solid #a6a6a6;
+  border-radius: 3px;
+  background: #fff;
+  overflow: hidden;
+}
+.custom-stepper:focus-within { border-color: var(--clr-primary); box-shadow: 0 0 0 2px rgba(8, 155, 147, 0.2); }
+.var-number-input {
+  flex: 1;
+  width: 100%;
+  padding: 0 0.3rem;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #0f172a;
+  font-size: 1.2rem;
+  font-weight: 600;
+  text-align: center;
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+.var-number-input::-webkit-inner-spin-button,
+.var-number-input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+.stepper-arrow-box {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: 1.6rem;
+  height: 100%;
+  border-left: 1px solid #a6a6a6;
+  background: #f0f0f0;
+}
+.step-btn {
+  display: grid;
+  flex: 1;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: #f0f0f0;
+  color: #444;
+  font-size: 0.65rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.step-btn:hover { background: #e0e0e0; color: #000; }
+.step-btn:active { background: #ccc; }
+.step-btn.step-up { border-bottom: 1px solid #d0d0d0; }
+/* Fixed width keeps the unit column aligned across all rows */
+.var-unit {
+  display: inline-block;
+  width: 3.6rem;
+  min-width: 3.6rem;
+  color: var(--clr-primary);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: left;
+  white-space: nowrap;
+}
+/* --------------------------------------------------------------------------
+   4. Reference panels
+   -------------------------------------------------------------------------- */
+/* Diagram: the panel is a flex column so the figure always fills the full viewport height */
+#panel-diagram { display: flex; flex: 1 1 0; flex-direction: column; min-height: 0; height: 100%; overflow: hidden; }
+/* Shared small-caps label */
+/* Formula */
+/* Calculation */
+.calc-step {
+  padding: 1rem 1.2rem;
+  background: #f8fafc;
+  border-left: 0.3rem solid #168983;
+  border-radius: 0.6rem;
+}
+.calc-step-title { margin-bottom: 0.4rem; color: #168983; font-size: 1.35rem; font-weight: 700; }
+/* --------------------------------------------------------------------------
+   5. Observation + readings table
+   -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   6. Results + graphs
+   -------------------------------------------------------------------------- */
+/* Horizontal bar readout (e.g. energy dissipated) */
+/* Graphs: each canvas sits in a relatively-positioned wrapper so its pixel
+   size never feeds back into the flex layout. */
+.graph-canvas-wrap canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  border: 1px solid #d1dddd;
+  border-radius: 0.35rem;
+}
+.channel-details { overflow:hidden; border:1px solid #d5e2e1; border-radius:.55rem; background:#f8fbfb; }
+.channel-details summary { display:flex; align-items:center; gap:.6rem; padding:.55rem .75rem; color:#334155; font-size:1.2rem; font-weight:800; cursor:pointer; list-style:none; }
+.channel-details summary::-webkit-details-marker { display:none; }
+.channel-details summary::after { content:'+'; margin-left:auto; color:var(--clr-primary); }
+.channel-details[open] summary::after { content:'−'; }
+.channel-details-body { display:flex; flex-direction:column; gap:.8rem; padding:0 .75rem .8rem; }
+.channel-panel-title { display:flex; align-items:center; gap:.6rem; padding:.55rem .75rem; color:#334155; font-size:1.2rem; font-weight:800; }
